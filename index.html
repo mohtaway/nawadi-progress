@@ -20,7 +20,7 @@
   --teal:#189C9C; --teal-deep:#0F7373; --teal-soft:#E4F4F3; --teal-wash:#F1F9F8;
   --gold:#D7B65A; --gold-ink:#9A7A22; --gold-soft:#FBF4E0;
   --ink:#0E3E41; --muted:#5E7A7C; --line:#DCEAE9;
-  --bg:#F3F8F7; --surface:#FFFFFF; --done:#189C9C; --todo:#B9CACA;
+  --bg:#F3F8F7; --surface:#FFFFFF; --done:#189C9C; --doing:#D7B65A; --doing-ink:#3E3210; --todo:#62777B; --todo-soft:#E8EEEF;
   --font:"Tajawal", "Segoe UI", Tahoma, sans-serif;
   --shadow:0 1px 2px rgba(14,62,65,.04), 0 8px 24px rgba(14,62,65,.06);
   color-scheme:light;
@@ -52,25 +52,15 @@ body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16p
 /* الملخص */
 .summary{padding:20px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
 .sum-title{margin:0;font-size:16px;font-weight:700;color:var(--teal-deep)}
-.legend{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:100%}
-.lg{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 6px;border-radius:16px;background:var(--teal-wash)}
-.lg b{font-size:34px;font-weight:800;line-height:1.1;color:var(--teal-deep)}
-.lg.s-waiting b{color:var(--gold-ink)} .lg.s-todo b{color:var(--muted)}
-.lg span{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:400;color:var(--ink);line-height:1.3}
-.lg i{width:8px;height:8px;border-radius:50%;flex:none}
-.lg i{display:none}
-.lg.s-done{background:var(--teal)} .lg.s-done b,.lg.s-done span{color:#fff}
-.lg.s-waiting{background:var(--gold-soft)} .lg.s-waiting i{background:var(--gold)} .lg.s-todo i{background:var(--todo)}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%}
+.lg{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 6px;border-radius:16px}
+.lg b{font-size:34px;font-weight:800;line-height:1.1}
+.lg span{font-size:14px;font-weight:700;line-height:1.3}
+.lg.s-done{background:var(--done)} .lg.s-done b,.lg.s-done span{color:#fff}
+.lg.s-doing{background:var(--doing)} .lg.s-doing b,.lg.s-doing span{color:var(--doing-ink)}
+.lg.s-todo{background:var(--todo)} .lg.s-todo b,.lg.s-todo span{color:#fff}
 .updated{font-size:13px;color:var(--muted)}
 
-/* في انتظار التعليمات */
-.waiting{background:var(--gold-soft);border:1px solid color-mix(in srgb, var(--gold) 35%, transparent);border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
-.waiting h2{margin:0;font-size:16px;font-weight:700;color:var(--gold-ink)}
-.waiting ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
-.waiting li{display:flex;flex-direction:column;padding-right:18px;position:relative;line-height:1.5}
-.waiting li::before{content:"";position:absolute;right:0;top:.55em;width:8px;height:8px;border-radius:2px;transform:rotate(45deg);background:var(--gold)}
-.waiting li strong{font-weight:700;font-size:15px}
-.waiting li span{color:var(--muted);font-size:13px}
 
 /* البنود */
 .items{display:flex;flex-direction:column;gap:12px;min-width:0}
@@ -86,7 +76,9 @@ summary:focus-visible{outline:2px solid var(--teal);outline-offset:-2px;border-r
 .it-title{font-weight:700;font-size:17px;line-height:1.45}
 .it-meta{font-size:13px;color:var(--muted)}
 .mini{height:6px;background:var(--teal-soft);border-radius:99px;overflow:hidden}
-.mini>span{display:block;height:100%;background:var(--teal);border-radius:99px}
+.mini{display:flex}
+.mini>span{display:block;height:100%}
+.mini>.m-done{background:var(--done)} .mini>.m-doing{background:var(--doing)}
 .chev{width:22px;height:22px;color:var(--muted);transition:transform .2s}
 details[open] .chev{transform:rotate(180deg)}
 /* بند اكتملت كل خطواته */
@@ -100,20 +92,17 @@ ol.tasks li{display:grid;grid-template-columns:24px 1fr;gap:12px;padding:12px 0;
 .ic{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
 .ic svg{width:14px;height:14px}
 .s-done .ic{background:var(--done);color:#fff}
-.s-doing .ic{border:2px solid var(--teal);background:var(--teal-soft)}
-.s-doing .ic::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--teal)}
-.s-waiting .ic{border:2px solid var(--gold);background:var(--gold-soft)}
-.s-waiting .ic::after{content:"";width:9px;height:2px;background:var(--gold-ink);border-radius:2px}
-.s-todo .ic{border:2px solid var(--todo)}
+.s-doing .ic{border:2px solid var(--doing);background:#FBF4E0}
+.s-doing .ic::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--doing)}
+.s-todo .ic{border:2px solid #B7C5C7}
 .t-body{min-width:0;display:flex;flex-direction:column;gap:2px}
 .t-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
 .t-title{line-height:1.6;font-size:15px}
 .s-done .t-title{color:var(--muted)}
 .chip{font-size:12px;font-weight:700;padding:1px 10px;border-radius:99px;white-space:nowrap}
-.s-done .chip{background:var(--teal-soft);color:var(--teal-deep)}
-.s-doing .chip{background:var(--teal);color:#fff}
-.s-waiting .chip{background:var(--gold-soft);color:var(--gold-ink)}
-.s-todo .chip{background:var(--teal-wash);color:var(--muted)}
+.s-done .chip{background:var(--done);color:#fff}
+.s-doing .chip{background:var(--doing);color:var(--doing-ink)}
+.s-todo .chip{background:var(--todo-soft);color:var(--todo)}
 .t-note{font-size:13px;color:var(--muted)}
 
 footer{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;color:var(--muted);text-align:center;padding-top:4px}
@@ -129,7 +118,6 @@ footer{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:1
   .logo img{height:48px}
   .layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:20px;align-items:start}
   .side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px)}
-  .legend{grid-template-columns:repeat(2,1fr)}
   ol.tasks{grid-template-columns:1fr 1fr;column-gap:28px;padding:0 22px 10px}
   details.item summary{padding:18px 22px}
 }
@@ -168,7 +156,7 @@ footer{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:1
 <script>
 /* ============================================================
    البيانات: المكان الوحيد الذي يُعدَّل.
-   الحالة: "done" منجزة · "doing" جارية · "waiting" بانتظار ردكم · "todo" لم تبدأ
+   الحالة: "done" منجزة · "doing" جارية · "todo" لم تبدأ
    note: سطر اختياري يظهر تحت الخطوة.
    ============================================================ */
 const UPDATED = "2026-11-24";
@@ -194,11 +182,11 @@ const ITEMS = [
   ]},
   { title: "التسجيل والأسابيع في الموقع، وملخص السنة", due: "منتصف يناير ٢٠٢٧", tasks: [
     { t: "حفظ الأسابيع التي اشتراها كل ابن", s: "doing" },
-    { t: "حساب سعر الأسابيع حسب عددها", s: "waiting" },
+    { t: "حساب سعر الأسابيع حسب عددها", s: "todo" },
     { t: "التسجيل بأسابيع متفرقة ودفعها مرة واحدة", s: "todo" },
     { t: "تجديد كل ابن على حدة", s: "todo" },
     { t: "الحضور حسب الأسابيع المشتراة", s: "todo" },
-    { t: "استرداد أسبوع محدد من الإدارة", s: "waiting" },
+    { t: "استرداد أسبوع محدد من الإدارة", s: "todo" },
     { t: "عرض برامج الفرع قبل ملخص التسجيل", s: "doing" },
     { t: "السياسة والأحكام بعد اختيار الفرع", s: "todo" },
     { t: "الانتظار بدون دفع مع حفظ الأسابيع المختارة، وإلغاء «الدفع لاحقًا»", s: "todo" },
@@ -240,8 +228,8 @@ const ITEMS = [
 ];
 /* ============================================================ */
 
-const LABEL = { done: "منجزة", doing: "جارية", waiting: "بانتظار ردكم", todo: "لم تبدأ" };
-const ORDER = ["done", "doing", "waiting", "todo"];
+const LABEL = { done: "منجزة", doing: "جارية", todo: "لم تبدأ" };
+const ORDER = ["done", "doing", "todo"];
 const ar = n => String(n).replace(/\d/g, d => "٠١٢٣٤٥٦٧٨٩"[d]);
 const MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
 const fmtDate = iso => { const [y,m,d] = iso.split("-").map(Number); return `${ar(d)} ${MONTHS[m-1]} ${ar(y)}`; };
@@ -269,7 +257,7 @@ document.getElementById("items").innerHTML = ITEMS.map((it, idx) => {
       <span class="it-head">
         <span class="it-title">${esc(it.title)}${complete ? `<span class="done-pill">${CHECK}مكتمل</span>` : ""}</span>
         <span class="it-meta">${meta}</span>
-        <span class="mini"><span style="width:${Math.round(d / n * 100)}%"></span></span>
+        <span class="mini"><span class="m-done" style="width:${d / n * 100}%"></span><span class="m-doing" style="width:${it.tasks.filter(t => t.s === "doing").length / n * 100}%"></span></span>
       </span>
       ${CHEV}
     </summary>
