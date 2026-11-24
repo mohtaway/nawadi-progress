@@ -153,10 +153,6 @@ footer{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:1
         <div class="updated" id="updated"></div>
       </section>
 
-      <section class="waiting" id="waiting" hidden>
-        <h2 id="waitingTitle"></h2>
-        <ul id="waitingList"></ul>
-      </section>
     </aside>
 
     <main class="items" id="items" aria-label="البنود"></main>
@@ -198,11 +194,11 @@ const ITEMS = [
   ]},
   { title: "التسجيل والأسابيع في الموقع، وملخص السنة", due: "منتصف يناير ٢٠٢٧", tasks: [
     { t: "حفظ الأسابيع التي اشتراها كل ابن", s: "doing" },
-    { t: "حساب سعر الأسابيع حسب عددها", s: "waiting", note: "كم قيمة الأسبوع الواحد؟ المقترح: سعر الباقة ÷ عدد الأسابيع" },
+    { t: "حساب سعر الأسابيع حسب عددها", s: "waiting" },
     { t: "التسجيل بأسابيع متفرقة ودفعها مرة واحدة", s: "todo" },
     { t: "تجديد كل ابن على حدة", s: "todo" },
     { t: "الحضور حسب الأسابيع المشتراة", s: "todo" },
-    { t: "استرداد أسبوع محدد من الإدارة", s: "waiting", note: "الأسبوع الذي لم يبدأ: هل يُسترد كاملا؟" },
+    { t: "استرداد أسبوع محدد من الإدارة", s: "waiting" },
     { t: "عرض برامج الفرع قبل ملخص التسجيل", s: "doing" },
     { t: "السياسة والأحكام بعد اختيار الفرع", s: "todo" },
     { t: "الانتظار بدون دفع مع حفظ الأسابيع المختارة، وإلغاء «الدفع لاحقًا»", s: "todo" },
@@ -259,13 +255,6 @@ document.getElementById("legend").innerHTML = ORDER.map(s =>
   `<div class="lg s-${s}"><b>${ar(count(s))}</b><span>${LABEL[s]}</span></div>`).join("");
 document.getElementById("updated").textContent = "آخر تحديث: " + fmtDate(UPDATED);
 
-const waiting = ITEMS.flatMap(i => i.tasks.filter(t => t.s === "waiting"));
-if (waiting.length) {
-  document.getElementById("waiting").hidden = false;
-  document.getElementById("waitingTitle").textContent = "بانتظار ردكم على:";
-  document.getElementById("waitingList").innerHTML = waiting.map(t =>
-    `<li><strong>${esc(t.note || t.t)}</strong>${t.note ? `<span>${esc(t.t)}</span>` : ""}</li>`).join("");
-}
 
 let itemNo = 0;
 document.getElementById("items").innerHTML = ITEMS.map((it, idx) => {
