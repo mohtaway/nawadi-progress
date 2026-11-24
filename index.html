@@ -84,7 +84,7 @@ details[open] .chev{transform:rotate(180deg)}
 /* بند اكتملت كل خطواته */
 details.item.complete{background:var(--teal-wash);box-shadow:none;border:1.5px solid var(--teal)}
 .complete .it-title{color:var(--teal-deep)}
-.done-pill{display:inline-flex;align-items:center;gap:4px;margin-inline-start:8px;font-size:12px;font-weight:700;padding:1px 10px;border-radius:99px;background:var(--teal);color:#fff;vertical-align:middle}
+.done-pill{display:inline-flex;align-items:center;gap:4px;margin-inline-start:8px;font-size:12px;font-weight:700;padding:1px 10px;border-radius:99px;background:#1E9E5A;color:#fff;vertical-align:middle}
 .done-pill svg{width:12px;height:12px}
 
 ol.tasks{list-style:none;margin:0;padding:0 18px 8px;display:grid;grid-template-columns:1fr}
@@ -266,7 +266,7 @@ document.getElementById("items").innerHTML = ITEMS.map((it, idx) => {
         <span class="ic">${t.s === "done" ? CHECK : ""}</span>
         <span class="t-body">
           <span class="t-row"><span class="t-title">${esc(t.t)}</span><span class="chip">${LABEL[t.s]}</span></span>
-          ${t.note ? `<span class="t-note">${t.s === "waiting" ? "بانتظار ردكم: " : ""}${esc(t.note)}</span>` : ""}
+          ${t.note ? `<span class="t-note">${esc(t.note)}</span>` : ""}
         </span>
       </li>`).join("")}
     </ol>
